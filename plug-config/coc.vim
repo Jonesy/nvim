@@ -37,7 +37,7 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 " Show autocomplete when Tab is pressed
-inoremap <silent><expr> <Tab> coc#refresh()
+" inoremap <silent><expr> <Tab> coc#refresh()
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
