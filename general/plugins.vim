@@ -10,6 +10,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   " Syntax
   Plug 'tpope/vim-surround'
   Plug 'tpope/vim-commentary'
+  " Plug 'preservim/nerdcommenter'
   Plug 'tpope/vim-repeat'
   Plug 'suy/vim-context-commentstring'
   Plug 'jiangmiao/auto-pairs'

@@ -25,3 +25,10 @@ nnoremap <silent> <M-j>    :resize -2<CR>
 nnoremap <silent> <M-k>    :resize +2<CR>
 nnoremap <silent> <M-h>    :vertical resize -2<CR>
 nnoremap <silent> <M-l>    :vertical resize +2<CR>
+
+" Alternate way to save
+nnoremap <silent> <C-s> :w<CR>
+" Alternate way to quit
+nnoremap <silent> <C-Q> :wq!<CR>
+" Use control-c instead of escape
+nnoremap <silent> <C-c> <Esc>
