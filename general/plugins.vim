@@ -46,6 +46,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'airblade/vim-gitgutter'
   Plug 'tpope/vim-fugitive'
   Plug 'tpope/vim-rhubarb'
+  Plug 'idanarye/vim-merginal'
   Plug 'junegunn/gv.vim'
 
   " Themes

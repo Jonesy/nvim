@@ -17,9 +17,14 @@ let g:which_key_use_floating_win = 0
 " Single mappings
 let g:which_key_map['/'] = [ ':call Comment()', 'comment' ]
 
-let g:which_key_map.g = {
+let g:which_key_map['g'] = {
   \ 'name': '+git',
-  \ 's': [ ':Gstatus', 'Git Status' ]
+  \ 's': [ ':Gstatus', 'Git Status' ],
+  \ 'p': [ ':Git push -u origin HEAD', 'Git push origin' ],
+  \ 'P': [ ':Gpull', 'Git pull current branch' ],
+  \ 'f': [ ':Gfetch origin', 'Git fetch origin' ],
+  \ 'x': [ ':Gread! show HEAD:%', 'Git undo uncommit changes' ],
+  \ 'b': [ ':Merginal', 'List Branches' ]
   \ }
 
 " Register which key map
