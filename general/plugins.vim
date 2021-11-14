@@ -29,6 +29,7 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
   Plug 'junegunn/fzf.vim'
   Plug 'peitalin/vim-jsx-typescript'
+  Plug 'maxmellon/vim-jsx-pretty'
   " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'airblade/vim-rooter'
 

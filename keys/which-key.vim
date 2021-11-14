@@ -19,12 +19,17 @@ let g:which_key_map['/'] = [ ':call Comment()', 'comment' ]
 
 let g:which_key_map['g'] = {
   \ 'name': '+git',
-  \ 's': [ ':Gstatus', 'Git Status' ],
+  \ 's': [ ':Git', 'Git Status' ],
   \ 'p': [ ':Git push -u origin HEAD', 'Git push origin' ],
-  \ 'P': [ ':Gpull', 'Git pull current branch' ],
+  \ 'P': [ ':Git pull', 'Git pull current branch' ],
   \ 'f': [ ':Gfetch origin', 'Git fetch origin' ],
   \ 'x': [ ':Gread! show HEAD:%', 'Git undo uncommit changes' ],
   \ 'b': [ ':Merginal', 'List Branches' ]
+  \ }
+
+let g:which_key_map['b'] = {
+  \ 'name': '+buffers',
+  \ 'b': [ ':Buffers', 'List buffers' ]
   \ }
 
 " Register which key map
