@@ -7,13 +7,12 @@ require("user.plugin-manager")
 -- require("colorizer").setup()
 
 -- LSP
--- require("treesitter")
--- require("lsp-config")
+require("user.lsp")
 require("user.cmp")
--- require("lspkind").init()
--- require("lspsaga").init_lsp_saga()
--- -- require "lsp-install"
--- -- require "nvim-dap"
+require("user.telescope")
+require("user.treesitter")
+require("user.autopairs")
+require("user.comments")
 
--- -- ColorsScheme
+-- ColorsScheme
 require("themes/dracula")
