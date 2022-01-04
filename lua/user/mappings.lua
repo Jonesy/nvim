@@ -24,6 +24,17 @@ keymap("n", "<C-l>", "<C-w>l", opts)
 
 keymap("n", "<leader>e", ":Lex 30<cr>", opts)
 
+-- Navigate buffers
+keymap("n", "<Tab>", ":bnext<CR>", opts)
+keymap("n", "<S-Tab>", ":bprevious<CR>", opts)
+
+-- Telescope
+keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
+keymap("n", "<c-t>", "<cmd>Telescope live_grep<cr>", opts)
+
+-- Nvimtree
+keymap("n", "<leader>e", ":NvimTreeToggle<cr>", opts)
+
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize +2<CR>", opts)
 keymap("n", "<C-Down>", ":resize -2<CR>", opts)
@@ -34,9 +45,11 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
+
 -- Move text up and down
-keymap("v", "J", ":move '>+1<CR>gv-gv", opts)
-keymap("v", "K", ":move '<-2<CR>gv-gv", opts)
+keymap("v", "<C-j>", ":move '>+1<CR>gv-gv", opts)
+keymap("v", "<C-k>", ":move '<-2<CR>gv-gv", opts)
+
 -- Better pasting
 keymap("v", "p", '"_dP', opts)
 
@@ -53,7 +66,3 @@ keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
 keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
 keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
 keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
-
--- Telescope
-keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
-keymap("n", "<c-t>", "<cmd>Telescope live_grep<cr>", opts)

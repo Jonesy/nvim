@@ -1,4 +1,9 @@
--- Find more schemas here: https://www.schemastore.org/json/
+local default_schemas = nil
+local status_ok, jsonls_settings = pcall(require, "nlspsettings.jsonls")
+if status_ok then
+  default_schemas = jsonls_settings.get_default_schemas()
+end
+
 local schemas = {
   {
     description = "TypeScript compiler configuration file",
@@ -163,10 +168,19 @@ local schemas = {
   },
 }
 
+local function extend(table1, table2)
+  for _, value in ipairs(table2) do
+    table.insert(table1, value)
+  end
+  return table1
+end
+
+local extended_schemas = extend(schemas, default_schemas)
+
 local opts = {
   settings = {
     json = {
-      schemas = schemas,
+      schemas = extended_schemas,
     },
   },
   setup = {

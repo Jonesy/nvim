@@ -1,7 +1,7 @@
 local M = {}
 
 M.setup = function()
- local signs = {
+  local signs = {
     { name = "DiagnosticSignError", text = "" },
     { name = "DiagnosticSignWarn", text = "" },
     { name = "DiagnosticSignHint", text = "" },
@@ -32,7 +32,7 @@ M.setup = function()
     },
   }
 
-  vim.diagnostic.config(config) 
+  vim.diagnostic.config(config)
 
   vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
     border = "rounded",
@@ -82,7 +82,6 @@ local function lsp_keymaps(bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
-
 
 M.on_attach = function(client, bufnr)
   if client.name == "tsserver" then
