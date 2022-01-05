@@ -24,7 +24,11 @@ null_ls.setup({
       },
     }),
     -- formatting.yapf,
-    formatting.stylua,
+    formatting.stylua.with({
+      condition = function()
+        return vim.fn.executable("stylua") > 0
+      end,
+    }),
     diagnostics.eslint.with({
       only_local = "node_modules/.bin",
     }),
