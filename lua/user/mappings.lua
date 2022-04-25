@@ -31,6 +31,7 @@ keymap("n", "<leader>g", ":Neogit<CR>", opts)
 -- Navigate buffers
 keymap("n", "<Tab>", ":bnext<CR>", opts)
 keymap("n", "<S-Tab>", ":bprevious<CR>", opts)
+keymap("n", "<leader>b", ":JABSOpen<CR>", opts)
 
 -- Telescope
 keymap(
@@ -65,12 +66,15 @@ keymap("v", "<C-k>", ":move '<-2<CR>gv-gv", opts)
 -- Better pasting (doesn't swap the clipboard contents with what you replaced)
 keymap("v", "p", '"_dP', opts)
 
+keymap("v", "<leader>/", '<CMD>lua require("Comment.api").toggle_current_linewise()<CR>', opts)
 -- Visual Block --
 -- Move text up and down
 keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
+
+keymap("x", "<leader>/", '<CMD>lua require("Comment.api").toggle_current_linewise()<CR>', opts)
 
 -- Terminal --
 -- Better terminal navigation

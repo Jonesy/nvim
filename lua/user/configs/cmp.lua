@@ -68,12 +68,6 @@ cmp.setup({
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
-			elseif luasnip.expandable() then
-				luasnip.expand()
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
-			elseif check_backspace() then
-				fallback()
 			else
 				fallback()
 			end
@@ -113,18 +107,28 @@ cmp.setup({
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
 		{ name = "luasnip" },
-		{ name = "buffer" },
+		{
+			name = "buffer",
+			option = {
+				get_bufnrs = function()
+					return { vim.api.nvim_get_current_buf() }
+				end,
+			},
+		},
 		{ name = "path" },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
 		select = false,
 	},
-	documentation = {
-		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-	},
 	experimental = {
 		ghost_text = true,
-		native_menu = false,
+	},
+	view = {
+		entries = "native",
+	},
+	window = {
+		documentation = false,
+		border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
 	},
 })

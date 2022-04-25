@@ -46,6 +46,7 @@ return require("packer").startup(function(use)
 	use("moll/vim-bbye")
 	use("nvim-lualine/lualine.nvim")
 	use("ahmedkhalf/project.nvim")
+	use("matbme/JABS.nvim")
 
 	-- Text
 	use("windwp/nvim-autopairs") -- Autopairs, integrates with both cmp and treesitter
