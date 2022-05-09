@@ -39,7 +39,7 @@ return require("packer").startup(function(use)
 	-- Core plugins
 	use("wbthomason/packer.nvim") -- Have packer manage itself
 	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
-	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
+	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of pluginsplug
 	use("kyazdani42/nvim-tree.lua")
 	use("kyazdani42/nvim-web-devicons")
 	use("akinsho/bufferline.nvim")
@@ -73,6 +73,8 @@ return require("packer").startup(function(use)
 	use("williamboman/nvim-lsp-installer") -- simple to use language server installer
 	use("tamago324/nlsp-settings.nvim") -- language server settings defined in json for
 	use("jose-elias-alvarez/null-ls.nvim") -- for formatters and linters
+	use("b0o/SchemaStore.nvim")
+	use("ray-x/lsp_signature.nvim")
 
 	-- Treesitter
 	use({
