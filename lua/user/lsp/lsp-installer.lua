@@ -1,25 +1,18 @@
+-- TODO migrate to new pattern https://github.com/williamboman/nvim-lsp-installer/discussions/636
 local status_ok, lsp_installer = pcall(require, "nvim-lsp-installer")
+local util = require("lspconfig/util")
 
 if not status_ok then
 	return
 end
 
+lsp_installer.setup({})
 lsp_installer.on_server_ready(function(server)
 	local handlers = require("user.lsp.handlers")
 	local opts = {
 		on_attach = handlers.on_attach,
 		capabilities = handlers.capabilities,
 	}
-
-	if server.name == "denols" then
-		local deno_opts = {
-			setup = {},
-			init_options = {
-				lint = true,
-			},
-		}
-		opts = vim.tbl_deep_extend("force", deno_opts, opts)
-	end
 
 	-- specific configs for certain LSPs
 	if server.name == "jsonls" then
@@ -30,6 +23,15 @@ lsp_installer.on_server_ready(function(server)
 	if server.name == "sumneko_lua" then
 		local sumneko_opts = require("user.lsp.settings.sumneko_lua")
 		opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
+	end
+
+	if server.name == "denols" then
+		opts = vim.tbl_deep_extend("force", {
+			root_dir = util.root_pattern("deno.json"),
+			init_options = {
+				lint = true,
+			},
+		}, opts)
 	end
 
 	server:setup(opts)
