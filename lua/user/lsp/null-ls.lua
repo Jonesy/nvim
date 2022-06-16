@@ -7,7 +7,7 @@ end
 local formatting = null_ls.builtins.formatting
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 local diagnostics = null_ls.builtins.diagnostics
-local completion = null_ls.builtins.completion
+-- local completion = null_ls.builtins.completion
 
 null_ls.setup({
 	debug = false,
@@ -25,6 +25,10 @@ null_ls.setup({
 			},
 		}),
 		-- formatting.yapf,
+		formatting.prettierd.with({
+			filetypes = { "html", "json", "css", "yaml" },
+			extra_filetypes = { "html", "json", "css", "yaml" },
+		}),
 		formatting.stylua.with({
 			condition = function()
 				return vim.fn.executable("stylua") > 0
@@ -39,7 +43,7 @@ null_ls.setup({
 			only_local = "node_modules/.bin",
 		}),
 		diagnostics.flake8,
-		completion.spell,
+		-- completion.spell,
 	},
 	on_attach = function(client)
 		if client.resolved_capabilities.document_formatting then

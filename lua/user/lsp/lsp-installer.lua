@@ -1,38 +1,85 @@
--- TODO migrate to new pattern https://github.com/williamboman/nvim-lsp-installer/discussions/636
 local status_ok, lsp_installer = pcall(require, "nvim-lsp-installer")
+local schemastore = require("schemastore")
+local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
+local handlers = require("user.lsp.handlers")
 
 if not status_ok then
 	return
 end
 
-lsp_installer.setup({})
-lsp_installer.on_server_ready(function(server)
-	local handlers = require("user.lsp.handlers")
-	local opts = {
-		on_attach = handlers.on_attach,
-		capabilities = handlers.capabilities,
-	}
+lsp_installer.setup({
+	automatic_installation = true,
+	ensure_installed = { "tsserver", "graphql", "denols", "cssls", "emmet_ls" },
+})
 
-	-- specific configs for certain LSPs
-	if server.name == "jsonls" then
-		local jsonls_opts = require("user.lsp.settings.jsonls")
-		opts = vim.tbl_deep_extend("force", jsonls_opts, opts)
-	end
+-- Ensure VSCode LSP package is installed: npm i -g vscode-langservers-extracted
+local jsonCapabilities = vim.lsp.protocol.make_client_capabilities()
+jsonCapabilities.textDocument.completion.completionItem.snippetSupport = true
+lspconfig.jsonls.setup({
+	on_attach = handlers.on_attach,
+	capabilities = jsonCapabilities,
+	init_options = {
+		provideFormatter = false,
+	},
+	settings = {
+		json = {
+			schemas = schemastore.json.schemas(),
+		},
+	},
+	setup = {
+		commands = {},
+	},
+})
 
-	if server.name == "sumneko_lua" then
-		local sumneko_opts = require("user.lsp.settings.sumneko_lua")
-		opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
-	end
-
-	if server.name == "denols" then
-		opts = vim.tbl_deep_extend("force", {
-			root_dir = util.root_pattern("deno.json"),
-			init_options = {
-				lint = true,
+lspconfig.sumneko_lua.setup({
+	settings = {
+		Lua = {
+			diagnostics = {
+				globals = { "vim" },
 			},
-		}, opts)
-	end
+			workspace = {
+				library = {
+					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+					[vim.fn.stdpath("config") .. "/lua"] = true,
+				},
+			},
+		},
+	},
+})
 
-	server:setup(opts)
-end)
+lspconfig.denols.setup({
+	on_attach = handlers.on_attach,
+	capabilities = handlers.capabilities,
+	root_dir = util.root_pattern("deno.json"),
+	init_options = {
+		lint = true,
+	},
+})
+
+lspconfig.tsserver.setup({
+	on_attach = handlers.on_attach,
+	capabilities = handlers.capabilities,
+})
+
+lspconfig.rust_analyzer.setup({
+	on_attach = handlers.on_attach,
+	capabilities = handlers.capabilities,
+})
+
+lspconfig.cssls.setup({
+	on_attach = handlers.on_attach,
+	capabilities = handlers.capabilities,
+})
+
+lspconfig.emmet_ls.setup({
+	on_attach = handlers.on_attach,
+	capabilities = handlers.capabilities,
+})
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+lspconfig.html.setup({
+	on_attach = handlers.on_attach,
+	capabilities = capabilities,
+})
