@@ -17,6 +17,7 @@ require("user.configs.jabs")
 require("user.configs.nvim-tree")
 require("user.configs.bufferline")
 require("user.configs.lualine")
+-- require("user.configs.marks")
 require("user.configs.project")
 require("user.configs.neogit")
 

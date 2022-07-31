@@ -2,6 +2,7 @@ local status_ok, lsp_installer = pcall(require, "nvim-lsp-installer")
 local schemastore = require("schemastore")
 local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
+local nullUtil = require("null-ls.utils")
 local handlers = require("user.lsp.handlers")
 
 if not status_ok then
@@ -48,14 +49,19 @@ lspconfig.sumneko_lua.setup({
 	},
 })
 
-lspconfig.denols.setup({
-	on_attach = handlers.on_attach,
-	capabilities = handlers.capabilities,
-	root_dir = util.root_pattern("deno.json"),
-	init_options = {
-		lint = true,
-	},
-})
+-- Bug with lsp-config is causing this
+-- BUG: https://github.com/neovim/nvim-lspconfig/issues/2015
+-- WORKAROUND: https://github.com/anasrar/.dotfiles/blob/2022/neovim/.config/nvim/lua/rin/LSP/deno.lua
+if nullUtil.make_conditional_utils().root_has_file({ "deno.json" }) then
+	lspconfig.denols.setup({
+		on_attach = handlers.on_attach,
+		capabilities = handlers.capabilities,
+		root_dir = util.root_pattern("deno.json", "deno.jsonc"),
+		init_options = {
+			lint = true,
+		},
+	})
+end
 
 lspconfig.tsserver.setup({
 	on_attach = handlers.on_attach,

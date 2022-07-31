@@ -39,6 +39,9 @@ null_ls.setup({
 				return utils.root_has_file({ "deno.json" })
 			end,
 		}),
+		formatting.rustfmt.with({
+			extra_args = { "--edition=2021" },
+		}),
 		diagnostics.eslint.with({
 			only_local = "node_modules/.bin",
 		}),
