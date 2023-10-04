@@ -1,0 +1,44 @@
+-- on attach runs when the LSP server connects
+--local on_attach = function(_, bufnr)
+--  -- mapping callback
+--  local nmap = function(keys, func, description)
+--    if description then
+--      desc = description
+--    end
+--    vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
+--  end
+--
+--  nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+--end
+---- TODO: Attach keymaps
+--local servers = {
+--  -- tsserver = {},
+--  lua_ls = {
+--    Lua = {
+--      workspace = { checkThirdParty = false },
+--      telemetry = { enable = false },
+--    },
+--  },
+--}
+--
+--local capabilities = vim.lsp.protocol.make_client_capabilities()
+--
+--
+---- Set up mason
+--local mason_lspconfig = require("mason-lspconfig")
+---- Connect the servers
+--mason_lspconfig.setup({
+--  ensure_installed = vim.tbl_keys(servers),
+--})
+---- Set up handlers
+--mason_lspconfig.setup_handlers({
+--  function(server_name)
+--    require("lspconfig")[server_name].setup{
+--      capabilities = capabilities,
+--      on_attach = on_attach,
+--      settings = servers[server_name],
+--      filetypes = (servers[server_name] or {}).filetypes,
+--    }
+--  end
+--})
+--
