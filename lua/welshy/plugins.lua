@@ -49,9 +49,8 @@ require("lazy").setup({
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "hrsh7th/cmp-nvim-lsp",
-      -- 'hrsh7th/nvim-buffer',
-      -- 'hrsh7th/nvim-file',
-      -- 'hrsh7th/nvim-cmdline',
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-cmdline",
       "rafamadriz/friendly-snippets",
     },
   },
@@ -74,12 +73,35 @@ require("lazy").setup({
     "nvim-telescope/telescope-file-browser.nvim",
     dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
   },
+  -- Source Control
+  { "lewis6991/gitsigns.nvim" },
   -- Statusline
   {
     "echasnovski/mini.statusline",
     version = "*",
     config = function()
       require("mini.statusline").setup()
+    end,
+  },
+  -- Tooling
+  { "simrat39/rust-tools.nvim", ft = { "rs" } },
+  {
+    "ray-x/go.nvim",
+    dependencies = {
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    event = { "CmdlineEnter" },
+    ft = { "go", "gomod" },
+    -- Probably don't need this in Nix
+    -- build = ':lua require("go.install").update_all_sync()',
+    config = function()
+      require("go").setup({
+        lsp_inlay_hints = {
+          enable = true,
+        },
+      })
     end,
   },
   -- Editing
@@ -109,6 +131,20 @@ require("lazy").setup({
       })
     end,
   },
+  {
+    "folke/trouble.nvim",
+    dependencies = { "kyazdani42/nvim-web-devicons" },
+    config = function()
+      require("trouble").setup()
+    end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("todo-comments").setup()
+    end,
+  },
   -- Theme
   {
     "catppuccin/nvim",
@@ -117,5 +153,9 @@ require("lazy").setup({
     config = function()
       vim.cmd.colorscheme("catppuccin-macchiato")
     end,
+  },
+}, {
+  git = {
+    url_format = "git@github.com:%s.git",
   },
 })

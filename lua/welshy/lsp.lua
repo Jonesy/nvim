@@ -66,6 +66,12 @@ lspconfig.rust_analyzer.setup({
   on_attach = on_attach,
 })
 
+-- Swift
+lspconfig.sourcekit.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
 -- Nix
 lspconfig.nil_ls.setup({
   capabilities = capabilities,
@@ -101,6 +107,14 @@ api.nvim_create_autocmd("LspAttach", {
     if not client.server_capabilities.documentFormattingProvider then
       return
     end
+    -- TODO: add source kit support (not supported by LSP)
+    -- if client.name == "sourcekit" then
+    --   local input = api.nvim_buf_get_lines(0, 0, -1, true)
+    --   local cmd = "swift-format format"
+    --   local output = fn.system(cmd, input)
+    --   local formatted = fn.split(output, "\n")
+    --   api.nvim_buf_set_lines(0, 0, -1, false, formatted)
+    -- end
 
     api.nvim_create_autocmd("BufWritePre", {
       group = get_augroup(client),

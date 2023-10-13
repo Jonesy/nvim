@@ -14,13 +14,13 @@ ts.setup({
     "ocaml",
     "python",
     "rust",
+    "swift",
     "tsx",
     "typescript",
     "vimdoc",
     "vim",
     "zig",
   },
-  --  ensure_installed = {},
 
   auto_install = true,
 
