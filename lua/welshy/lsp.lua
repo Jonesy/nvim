@@ -28,6 +28,7 @@ local on_attach = function(_, bufnr)
   nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
   nmap("gd", vim.lsp.buf.definition, "Go to Definition")
   nmap("gi", vim.lsp.buf.type_definition, "Type Definition")
+  nmap("gr", vim.lsp.buf.references, "Show References")
   -- Inline
   nmap("K", vim.lsp.buf.hover, "Hover documentation")
   nmap("<C-k>", vim.lsp.buf.signature_help, "Signature documentation")
@@ -62,6 +63,11 @@ lspconfig.gopls.setup({
 
 -- Rust
 lspconfig.rust_analyzer.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+lspconfig.zls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
