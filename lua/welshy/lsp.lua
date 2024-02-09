@@ -37,6 +37,11 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
+-- CSS
+lspconfig.cssls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
 -- TypeScript
 lspconfig.tsserver.setup({
   capabilities = capabilities,
@@ -67,6 +72,7 @@ lspconfig.rust_analyzer.setup({
   on_attach = on_attach,
 })
 
+-- Zig
 lspconfig.zls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
@@ -133,6 +139,16 @@ api.nvim_create_autocmd("LspAttach", {
           local formatted = fn.split(output, "\n")
           api.nvim_buf_set_lines(0, 0, -1, false, formatted)
           -- TODO: break this out to a reusable function that can be called with TS
+        elseif client.name == "tsserver" then
+          local input = api.nvim_buf_get_lines(0, 0, -1, true)
+          local cmd = "prettierd " .. api.nvim_buf_get_name(0)
+          local output = fn.system(cmd, input)
+          if vim.v.shell_error ~= 0 then
+            vim.notify("formatting error", vim.log.levels.ERROR)
+          else
+            local formatted = fn.split(output, "\n")
+            api.nvim_buf_set_lines(0, 0, -1, false, formatted)
+          end
         else
           vim.lsp.buf.format({
             async = false,
