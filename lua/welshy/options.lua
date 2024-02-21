@@ -1,3 +1,5 @@
+local maxWidth = 80
+
 -- Leader key to space
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -21,8 +23,13 @@ vim.o.swapfile = false
 vim.o.breakindent = true
 
 -- Keep sign column
+-- HINT: gq<motion> to format line
 vim.wo.signcolumn = "yes"
-vim.o.colorcolumn = "9999" -- HACK: work-around for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
+-- vim.o.colorcolumn = "9999" -- HACK: work-around for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
+vim.o.colorcolumn = "80"
+vim.o.wrap = maxWidth
+vim.o.linebreak = maxWidth
+vim.o.textwidth = maxWidth
 
 -- Splits
 vim.o.splitbelow = true -- Force all horizontal splits to go below current window
