@@ -1,8 +1,13 @@
+local fb_actions = require("telescope").extensions.file_browser.actions
+
 local ok, telescope = pcall(require, "telescope")
 if not ok then
   return
 end
 local actions = require("telescope.actions")
+-- Enable telescope fzf native, if installed
+pcall(require("telescope").load_extension, "fzf")
+pcall(require("telescope").load_extension, "file_browser")
 local builtin = require("telescope.builtin")
 
 local keymap = vim.keymap.set
@@ -16,6 +21,7 @@ telescope.setup({
     mappings = {
       n = {
         ["<CR>"] = actions.select_default,
+        ["<C-n>"] = telescope.extensions.file_browser.actions.create,
         ["q"] = actions.close,
       },
       i = {
@@ -28,10 +34,6 @@ telescope.setup({
     },
   },
 })
--- Enable telescope fzf native, if installed
-pcall(require("telescope").load_extension, "fzf")
-pcall(require("telescope").load_extension, "file_browser")
-
 -- Keymaps
 keymap("n", "<leader>ff", builtin.find_files, {})
 keymap("n", "<leader>e", function()

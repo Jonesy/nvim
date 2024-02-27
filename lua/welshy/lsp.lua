@@ -42,10 +42,22 @@ lspconfig.cssls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
+
 -- TypeScript
 lspconfig.tsserver.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+})
+
+-- ESLint
+lspconfig.eslint.setup({
+  capabilities = capabilities,
+  on_attach = function(_, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "ESLintFixAll",
+    })
+  end,
 })
 
 -- Lua
@@ -136,9 +148,13 @@ api.nvim_create_autocmd("LspAttach", {
           local input = api.nvim_buf_get_lines(0, 0, -1, true)
           local cmd = "stylua --search-parent-directories -"
           local output = fn.system(cmd, input)
-          local formatted = fn.split(output, "\n")
-          api.nvim_buf_set_lines(0, 0, -1, false, formatted)
           -- TODO: break this out to a reusable function that can be called with TS
+          if vim.v.shell_error ~= 0 then
+            vim.notify("formatting error", vim.log.levels.ERROR)
+          else
+            local formatted = fn.split(output, "\n")
+            api.nvim_buf_set_lines(0, 0, -1, false, formatted)
+          end
         elseif client.name == "tsserver" then
           local input = api.nvim_buf_get_lines(0, 0, -1, true)
           local cmd = "prettierd " .. api.nvim_buf_get_name(0)

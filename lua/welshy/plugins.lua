@@ -84,7 +84,11 @@ require("lazy").setup({
     end,
   },
   -- Tooling
-  { "simrat39/rust-tools.nvim", ft = { "rs" } },
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^4",
+    ft = { "rust" },
+  },
   {
     "ray-x/go.nvim",
     dependencies = {
