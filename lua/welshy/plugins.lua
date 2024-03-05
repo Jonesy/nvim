@@ -30,7 +30,6 @@ require("lazy").setup({
       -- "williamboman/mason-lspconfig.nvim",
 
       -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { "j-hui/fidget.nvim", tag = "legacy", opts = {} },
 
       -- Helpful dev tools for NeoVim
@@ -43,17 +42,37 @@ require("lazy").setup({
     },
   },
   {
-    -- Autocompletion
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "L3MON4D3/LuaSnip",
-      "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-cmdline",
-      "rafamadriz/friendly-snippets",
-    },
+    "stevearc/conform.nvim",
   },
+  {
+    "echasnovski/mini.completion",
+    version = "*",
+    config = function()
+      require("mini.completion").setup()
+    end,
+  },
+  -- {
+  --   -- Autocompletion
+  --   "hrsh7th/nvim-cmp",
+  --   event = "InsertEnter",
+  --   dependencies = {
+  --     {
+  --       "L3MON4D3/LuaSnip",
+  --       build = (function()
+  --         if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
+  --           return
+  --         end
+  --         return "make install_jsregexp"
+  --       end)(),
+  --     },
+  --     "saadparwaiz1/cmp_luasnip",
+  --     "hrsh7th/cmp-nvim-lsp",
+  --     "hrsh7th/cmp-path",
+  --     "hrsh7th/cmp-buffer",
+  --     "hrsh7th/cmp-cmdline",
+  --     "rafamadriz/friendly-snippets",
+  --   },
+  -- },
   -- Telescope
   {
     "nvim-telescope/telescope.nvim",
@@ -84,6 +103,7 @@ require("lazy").setup({
     end,
   },
   -- Tooling
+  -- TODO: Figure out how to set auto_focus on hover docs
   {
     "mrcjkb/rustaceanvim",
     version = "^4",
@@ -110,6 +130,13 @@ require("lazy").setup({
   },
   -- Editing
   {
+    "echasnovski/mini.ai",
+    version = "*",
+    config = function()
+      require("mini.ai").setup()
+    end,
+  },
+  {
     "echasnovski/mini.pairs",
     version = "*",
     config = function()
@@ -131,6 +158,7 @@ require("lazy").setup({
         mappings = {
           comment = "<leader>/",
           comment_line = "<leader>/",
+          comment_visual = "<leader>/",
         },
       })
     end,
