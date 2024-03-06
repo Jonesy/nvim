@@ -45,34 +45,29 @@ require("lazy").setup({
     "stevearc/conform.nvim",
   },
   {
-    "echasnovski/mini.completion",
-    version = "*",
-    config = function()
-      require("mini.completion").setup()
-    end,
+    -- Autocompletion
+    "hrsh7th/nvim-cmp",
+    event = {
+      "InsertEnter",
+      "CmdlineEnter",
+    },
+    dependencies = {
+      {
+        "L3MON4D3/LuaSnip",
+        version = "v2.*",
+        build = (function()
+          if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
+            return
+          end
+          return "make install_jsregexp"
+        end)(),
+      },
+      "saadparwaiz1/cmp_luasnip",
+      "rafamadriz/friendly-snippets",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-path",
+    },
   },
-  -- {
-  --   -- Autocompletion
-  --   "hrsh7th/nvim-cmp",
-  --   event = "InsertEnter",
-  --   dependencies = {
-  --     {
-  --       "L3MON4D3/LuaSnip",
-  --       build = (function()
-  --         if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
-  --           return
-  --         end
-  --         return "make install_jsregexp"
-  --       end)(),
-  --     },
-  --     "saadparwaiz1/cmp_luasnip",
-  --     "hrsh7th/cmp-nvim-lsp",
-  --     "hrsh7th/cmp-path",
-  --     "hrsh7th/cmp-buffer",
-  --     "hrsh7th/cmp-cmdline",
-  --     "rafamadriz/friendly-snippets",
-  --   },
-  -- },
   -- Telescope
   {
     "nvim-telescope/telescope.nvim",
@@ -107,7 +102,32 @@ require("lazy").setup({
   {
     "mrcjkb/rustaceanvim",
     version = "^4",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "mfussenegger/nvim-dap",
+      {
+        "lvimuser/lsp-inlayhints.nvim",
+        opts = {},
+      },
+    },
     ft = { "rust" },
+    config = function()
+      vim.g.rustaceanvim = {
+        inlay_hints = {
+          highlight = "NonText",
+        },
+        tools = {
+          hover_actions = {
+            auto_focus = true,
+          },
+        },
+        server = {
+          on_attach = function(client, bufnr)
+            require("lsp-inlayhints").on_attach(client, bufnr)
+          end,
+        },
+      }
+    end,
   },
   {
     "ray-x/go.nvim",

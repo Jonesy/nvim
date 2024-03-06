@@ -30,16 +30,43 @@ local on_attach = function(_, bufnr)
   -- Inline
   nmap("K", vim.lsp.buf.hover, "Hover documentation")
   nmap("<C-k>", vim.lsp.buf.signature_help, "Signature documentation")
+
+  -- if client.server_capabilities.inlayHintProvider then
+  --   vim.lsp.inlay_hint.enable(bufnr, true)
+  -- end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 -- CSS
 lspconfig.cssls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
+-- Requires npm i -g css-variables-language-server
+-- lspconfig.css_variables.setup({
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+-- })
+
+-- HTML
+lspconfig.html.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+-- Requires @olrtg/emmet-language-server
+lspconfig.emmet_language_server.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+-- Custom Elements
+-- requires npm install -g custom-elements-languageserver
+-- lspconfig.custom_elements_ls.setup({
+--   capabilities = capabilities,
+--   on_attach = on_attach,
+-- })
 
 -- TypeScript
 lspconfig.tsserver.setup({
@@ -69,12 +96,12 @@ lspconfig.lua_ls.setup({
   on_attach = on_attach,
   settings = {
     Lua = {
-      -- runtime = { version = "LuaJIT" },
+      runtime = { version = "LuaJIT" },
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
-      -- completion = {
-      --   callSnippet = "Replace",
-      -- },
+      completion = {
+        callSnippet = "Replace",
+      },
     },
   },
 })
