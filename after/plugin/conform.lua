@@ -8,6 +8,7 @@ conform.setup({
   formatters_by_ft = {
     lua = { "stylua" },
     go = { "goimports", "gofmt" },
+    templ = { "templ" },
     -- NOTE: use sublist to pick biome first
     javascript = { { "biome", "prettierd", "prettier" } },
   },

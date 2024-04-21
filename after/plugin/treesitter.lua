@@ -15,6 +15,7 @@ ts.setup({
     "python",
     "rust",
     "swift",
+    "templ",
     "tsx",
     "typescript",
     "vimdoc",

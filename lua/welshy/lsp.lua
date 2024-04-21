@@ -5,12 +5,17 @@ end
 local keymap = vim.keymap.set
 local diagnostic = vim.diagnostic
 
+vim.filetype.add({
+  extension = {
+    templ = "templ",
+  },
+})
+
 -- Diagnostics
 keymap("n", "[d", diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 keymap("n", "]d", diagnostic.goto_next, { desc = "Go to next diagnostic message" })
 keymap("n", "<leader>x", diagnostic.open_float, { desc = "Open floating diagnostic message" })
 keymap("n", "<leader>xl", diagnostic.setloclist, { desc = "Open diagnosics list" })
-
 -- Handler to setup keymapping when server attaches
 local on_attach = function(client, bufnr)
   -- mapping callback
@@ -108,6 +113,12 @@ lspconfig.lua_ls.setup({
 
 -- Go
 lspconfig.gopls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+-- Templ (Go)
+lspconfig.templ.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
