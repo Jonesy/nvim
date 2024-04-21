@@ -12,7 +12,7 @@ keymap("n", "<leader>x", diagnostic.open_float, { desc = "Open floating diagnost
 keymap("n", "<leader>xl", diagnostic.setloclist, { desc = "Open diagnosics list" })
 
 -- Handler to setup keymapping when server attaches
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- mapping callback
   local nmap = function(keys, func, desc)
     if desc then
@@ -31,9 +31,9 @@ local on_attach = function(_, bufnr)
   nmap("K", vim.lsp.buf.hover, "Hover documentation")
   nmap("<C-k>", vim.lsp.buf.signature_help, "Signature documentation")
 
-  -- if client.server_capabilities.inlayHintProvider then
-  --   vim.lsp.inlay_hint.enable(bufnr, true)
-  -- end
+  if client.server_capabilities.inlayHintProvider then
+    vim.lsp.inlay_hint.enable(bufnr, true)
+  end
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
