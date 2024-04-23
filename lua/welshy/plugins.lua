@@ -199,13 +199,28 @@ require("lazy").setup({
   },
   -- Theme
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000,
+    "mcchrish/zenbones.nvim",
+    dependencies = { "rktjmp/lush.nvim" },
     config = function()
-      vim.cmd.colorscheme("catppuccin-macchiato")
+      vim.cmd("colorscheme duckbones")
     end,
   },
+  -- {
+  --   "xero/miasma.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd("colorscheme miasma")
+  --   end,
+  -- },
+  -- {
+  --   "catppuccin/nvim",
+  --   name = "catppuccin",
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme("catppuccin-macchiato")
+  --   end,
+  -- },
 }, {
   git = {
     url_format = "git@github.com:%s.git",
