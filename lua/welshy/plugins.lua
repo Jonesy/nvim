@@ -199,12 +199,18 @@ require("lazy").setup({
   },
   -- Theme
   {
-    "mcchrish/zenbones.nvim",
-    dependencies = { "rktjmp/lush.nvim" },
+    "jaredgorski/spacecamp",
     config = function()
-      vim.cmd("colorscheme duckbones")
+      vim.cmd("colorscheme spacecamp")
     end,
   },
+  -- {
+  --   "mcchrish/zenbones.nvim",
+  --   dependencies = { "rktjmp/lush.nvim" },
+  --   config = function()
+  --     vim.cmd("colorscheme duckbones")
+  --   end,
+  -- },
   -- {
   --   "xero/miasma.nvim",
   --   lazy = false,
