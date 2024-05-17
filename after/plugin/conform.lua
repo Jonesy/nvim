@@ -9,6 +9,7 @@ conform.setup({
     lua = { "stylua" },
     go = { "goimports", "gofmt" },
     templ = { "templ" },
+    markdown = { "prettierd", "prettier" },
     -- NOTE: use sublist to pick biome first
     javascript = { { "biome", "prettierd", "prettier" } },
   },
