@@ -49,6 +49,10 @@ lspconfig.cssls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
 })
+lspconfig.somesass_ls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
 -- Requires npm i -g css-variables-language-server
 -- lspconfig.css_variables.setup({
 --   capabilities = capabilities,
@@ -124,6 +128,7 @@ lspconfig.templ.setup({
 })
 
 -- Rust
+-- Disabled in favour of rustacean plugin
 -- lspconfig.rust_analyzer.setup({
 --   capabilities = capabilities,
 --   on_attach = on_attach,
@@ -152,4 +157,10 @@ lspconfig.nil_ls.setup({
       },
     },
   },
+})
+
+-- Shopify
+lspconfig.shopify_theme_ls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
 })
