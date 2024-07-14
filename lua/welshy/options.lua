@@ -27,9 +27,9 @@ vim.o.breakindent = true
 vim.wo.signcolumn = "yes"
 -- vim.o.colorcolumn = "9999" -- HACK: work-around for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
 vim.o.colorcolumn = "80"
-vim.o.wrap = maxWidth
-vim.o.linebreak = maxWidth
-vim.o.textwidth = maxWidth
+vim.o.wrap = true
+vim.o.linebreak = true
+vim.o.textwidth = 80
 
 -- Splits
 vim.o.splitbelow = true -- Force all horizontal splits to go below current window
