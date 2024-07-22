@@ -81,7 +81,20 @@ lspconfig.emmet_language_server.setup({
 lspconfig.tsserver.setup({
   capabilities = capabilities,
   on_attach = on_attach,
+  settings = {
+    single_file_support = false,
+  },
 })
+
+lspconfig.denols.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+})
+
+-- As per docs
+vim.g.markdown_fenced_languages = {
+  "ts=typescript",
+}
 
 -- ESLint
 lspconfig.eslint.setup({

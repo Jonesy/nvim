@@ -7,10 +7,17 @@ trouble.setup({
   auto_close = true,
 })
 
-vim.keymap.set("n", "<leader>xx", ":TroubleToggle<CR>", { desc = "Toggle Trouble buffer issues" })
 vim.keymap.set(
   "n",
-  "<leader>xw",
-  ":TroubleToggle workspace_diagnostics<CR>",
-  { desc = "Toggle Trouble workspace issues" }
+  "<leader>xx",
+  "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+  { desc = "Toggle Trouble buffer issues" }
 )
+vim.keymap.set(
+  "n",
+  "<leader>cl",
+  "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+  { desc = "LSP Definitions / references / ... (Trouble)" }
+)
+
+vim.keymap.set("n", "<leader>xw", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Toggle Trouble workspace issues" })
