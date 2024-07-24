@@ -11,7 +11,7 @@ conform.setup({
     templ = { "templ" },
     markdown = { "prettierd", "prettier" },
     -- NOTE: use sublist to pick biome first
-    javascript = { { "biome", "prettierd", "prettier" } },
+    javascript = { "biome", "prettierd", "prettier" },
   },
   format_on_save = {
     -- These options will be passed to conform.format()
