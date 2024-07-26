@@ -19,6 +19,7 @@ return {
       { "<leader>bb", "<cmd>Telescope buffers<cr>", desc = "Search all open buffers" },
       { "<leader>fh", "<cmd>Telescope help_tags<cr>", desc = "Search help" },
       { "<leader>fb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Search in current buffer" },
+      { "<leader>ft", "<cm>TodoTelescope<cr>", desc = "Search all TODOs" },
     },
   },
   {

@@ -25,6 +25,7 @@ return {
     },
     config = function()
       local lspconfig = require("lspconfig")
+      local util = require("lspconfig.util")
       local keymap = vim.keymap.set
       local diagnostic = vim.diagnostic
 
@@ -65,7 +66,7 @@ return {
       end
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      -- capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+      capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
       -- CSS
       lspconfig.cssls.setup({
@@ -112,6 +113,7 @@ return {
       lspconfig.denols.setup({
         capabilities = capabilities,
         on_attach = on_attach,
+        root_dir = util.root_pattern("deno.json", "deno.jsonc"),
       })
 
       -- As per docs
