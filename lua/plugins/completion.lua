@@ -1,92 +1,71 @@
+-- Adapted from [ Kickstart.nvim ](https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua)
+
 return {
   {
     "hrsh7th/nvim-cmp",
-    version = false, -- last release is way too old
     event = "InsertEnter",
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-    },
-    opts = function()
-      local cmp = require("cmp")
-      local auto_select = true
-      return {
-        auto_brackets = {}, -- configure any filetype to auto add brackets
-        completion = {
-          completeopt = "menu,menuone,noinsert" .. (auto_select and "" or ",noselect"),
-        },
-        preselect = auto_select and cmp.PreselectMode.Item or cmp.PreselectMode.None,
-
-        mapping = cmp.mapping.preset.insert({
-          ["<C-j>"] = cmp.mapping.select_next_item(),
-          ["<C-k>"] = cmp.mapping.select_prev_item(),
-          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-          ["<C-Space>"] = cmp.mapping.complete({}),
-        }),
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-        }, {
-          { name = "buffer" },
-        }),
-        experimental = {
-          ghost_text = {
-            hl_group = "CmpGhostText",
-          },
-        },
-      }
-    end,
-  },
-  {
-    "nvim-cmp",
-    dependencies = {
       {
-        "garymjr/nvim-snippets",
-        dependencies = { "rafamadriz/friendly-snippets" },
-        opts = {
-          friendly_snippets = true,
-        },
-        keys = {
+        "L3MON4D3/LuaSnip",
+        build = "make install_jsregexp",
+        dependencies = {
           {
-            "<C-l>",
-            function()
-              if vim.snippet.active({ direction = 1 }) then
-                vim.schedule(function()
-                  vim.snippet.jump(1)
-                end)
-                return
-              end
-              return "<C-l>"
+            "rafamadriz/friendly-snippets",
+            config = function()
+              require("luasnip.loaders.from_vscode").lazy_load()
             end,
-            expr = true,
-            silent = true,
-            mode = "i",
-          },
-          {
-            "<C-h>",
-            function()
-              if vim.snippet.active({ direction = -1 }) then
-                vim.schedule(function()
-                  vim.snippet.jump(-1)
-                end)
-                return
-              end
-              return "<C-h>"
-            end,
-            expr = true,
-            silent = true,
-            mode = { "i", "s" },
           },
         },
       },
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lua",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
     },
-    opts = function(_, opts)
-      opts.snippet = {
-        expand = function(args)
-          vim.snippet.expand(args.body)
-          table.insert(opts.sources, { name = "snippets" })
-        end,
-      }
+    config = function()
+      local cmp = require("cmp")
+      local luasnip = require("luasnip")
+
+      luasnip.config.setup()
+      cmp.setup({
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
+        completion = { completeopt = "menu,menuone,noinsert" },
+        mapping = cmp.mapping.preset.insert({
+          ["<C-j>"] = cmp.mapping.select_next_item(),
+          ["<C-k>"] = cmp.mapping.select_prev_item(),
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+          ["<C-Space>"] = cmp.mapping.complete({}),
+          ["<C-l>"] = cmp.mapping(function()
+            if luasnip.expand_or_locally_jumpable() then
+              luasnip.expand_or_jump()
+            end
+          end, { "i", "s" }),
+          ["<C-h>"] = cmp.mapping(function()
+            if luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
+            end
+          end, { "i", "s" }),
+        }),
+        sources = {
+          {
+            name = "lazydev",
+            group_index = 0,
+          },
+          { name = "nvim_lsp" },
+          { name = "nvim_lsp_signature_help" },
+          { name = "luasnip" },
+          { name = "path" },
+          -- { name = "buffer" },
+        },
+      })
     end,
   },
 }

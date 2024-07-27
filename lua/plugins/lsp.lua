@@ -1,3 +1,5 @@
+local os = vim.fn.system("uname")
+
 return {
   {
     -- LSP Configuration & Plugins
@@ -9,8 +11,20 @@ return {
         config = function()
           require("mason").setup()
         end,
+        enable = function()
+          return os == "Darwin"
+        end,
       },
-      { "williamboman/mason-lspconfig.nvim", config = function() end },
+      {
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+          require("mason-lspconfig").setup()
+        end,
+
+        enable = function()
+          return os == "Darwin"
+        end,
+      },
 
       -- Useful status updates for LSP
       { "j-hui/fidget.nvim", tag = "legacy", opts = {} },
@@ -21,6 +35,10 @@ return {
         config = function()
           require("neodev").setup()
         end,
+      },
+      {
+        "folke/lazydev.nvim",
+        ft = "lua",
       },
     },
     config = function()
@@ -67,6 +85,12 @@ return {
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+
+      -- Markdown
+      lspconfig.marksman.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
 
       -- CSS
       lspconfig.cssls.setup({

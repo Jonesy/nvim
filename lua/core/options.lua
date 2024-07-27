@@ -26,6 +26,7 @@ vim.o.breakindent = true
 -- Keep sign column
 -- HINT: gq<motion> to format line
 vim.wo.signcolumn = "yes"
+vim.wo.colorcolumn = "80"
 vim.o.wrap = true
 vim.o.linebreak = true
 vim.o.textwidth = MAX_WIDTH

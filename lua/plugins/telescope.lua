@@ -11,7 +11,29 @@ return {
           return vim.fn.executable("make") == 1
         end,
       },
+      { "nvim-telescope/telescope-ui-select.nvim" },
     },
+    config = function()
+      require("telescope").setup({
+        defaults = {
+          mappings = {
+            n = {
+              ["<CR>"] = "select_default",
+              ["q"] = "close",
+            },
+            i = {
+              ["<CR>"] = "select_default",
+              ["<C-j>"] = "move_selection_next",
+              ["<C-k>"] = "move_selection_previous",
+              ["<C-u>"] = false,
+              ["<C-d>"] = false,
+            },
+          },
+        },
+      })
+      pcall(require("telescope").load_extension, "fzf")
+      pcall(require("telescope").load_extension, "ui-select")
+    end,
     keys = {
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Open default finder" },
       { "<leader>fs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Open default finder" },
