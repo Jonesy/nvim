@@ -10,9 +10,9 @@ return {
         markdown = { "prettierd", "prettier" },
         -- NOTE: use sublist to pick biome first
         javascript = { "biome", "prettierd", "prettier" },
+        json = { "prettierd", "prettier" },
       },
       format_on_save = {
-        -- These options will be passed to conform.format()
         timeout_ms = 500,
         lsp_fallback = true,
       },

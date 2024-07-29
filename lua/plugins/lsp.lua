@@ -26,6 +26,9 @@ return {
         end,
       },
 
+      -- JSON schemas
+      "b0o/schemastore.nvim",
+
       -- Useful status updates for LSP
       { "j-hui/fidget.nvim", tag = "legacy", opts = {} },
 
@@ -123,6 +126,50 @@ return {
       --   on_attach = on_attach,
       -- })
 
+      -- JSON, YAML and TOML
+      lspconfig.jsonls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        settings = {
+
+          json = {
+            schemas = require("schemastore").json.schemas(),
+            validate = { enable = true },
+          },
+        },
+      })
+
+      lspconfig.taplo.setup({
+        settings = {
+          evenBetterToml = {
+            schema = {
+              -- add additional schemas
+              associations = {
+                ["example\\.toml$"] = "https://json.schemastore.org/example.json",
+              },
+            },
+          },
+        },
+      })
+
+      lspconfig.yamlls.setup({
+        settings = {
+          yaml = {
+            validate = true,
+            -- disable the schema store
+            schemaStore = {
+              enable = false,
+              url = "",
+            },
+            -- reference https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/api/json/catalog.json
+            schemas = {
+              ["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "docker-compose*.{yml,yaml}",
+              ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+            },
+          },
+        },
+      })
+
       -- TypeScript
       lspconfig.tsserver.setup({
         capabilities = capabilities,
@@ -173,6 +220,12 @@ return {
             },
           },
         },
+      })
+
+      lspconfig.pico8_ls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        filetypes = { "p8", "lua" },
       })
 
       -- Go
