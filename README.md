@@ -1,10 +1,9 @@
-For LSP configurations, see https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+Redoing it one more time, for Mac and Linux
 
-Sources:
-https://github.com/vinodnimbalkar/dotfiles/tree/master/.config/nvim
-https://gist.github.com/benfrain/97f2b91087121b2d4ba0dcc4202d252f
+## Todo
 
-TODO
-
-- [ ] Install Swift LSP https://github.com/apple/sourcekit-lsp/blob/main/Editors/README.md
-- [ ] Figure out null-ls file saving for HTML/JSON
+- [ ] Go projects tooling [x-ray](https://github.com/ray-x/go.nvim)
+- [ ] Rust project tooling [Rustacean](https://github.com/mrcjkb/rustaceanvim)
+- [ ] Lua library handling (PICO-8, PlayDate libraries)
+- [ ] Investigate [Lua FZF](https://github.com/ibhagwan/fzf-lua)
+- [ ] JSON schema plugin

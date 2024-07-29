@@ -3,10 +3,12 @@ local keymap = vim.keymap.set
 local noremap_opts = { silent = true, noremap = true }
 
 keymap({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+keymap("n", "<Space>s", ":so %<CR>", noremap_opts)
 
 -- [ Buffers ]
 keymap("n", "<Space>bn", ":bnext<CR>", noremap_opts)
 keymap("n", "<Space>bp", ":bprevious<CR>", noremap_opts)
+keymap("n", "<Space>c", ":bd!<CR>", noremap_opts)
 
 -- [ Windows ]
 -- Splitting

@@ -39,6 +39,11 @@ return {
       {
         "folke/lazydev.nvim",
         ft = "lua",
+        opts = {
+          library = {
+            "~/Developer/PlaydateSDK/CoreLibs",
+          },
+        },
       },
     },
     config = function()
