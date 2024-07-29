@@ -29,13 +29,6 @@ return {
       -- Useful status updates for LSP
       { "j-hui/fidget.nvim", tag = "legacy", opts = {} },
 
-      -- Helpful dev tools for NeoVim
-      {
-        "folke/neodev.nvim",
-        config = function()
-          require("neodev").setup()
-        end,
-      },
       {
         "folke/lazydev.nvim",
         ft = "lua",
