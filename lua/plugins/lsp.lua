@@ -162,6 +162,7 @@ return {
               url = "",
             },
             -- reference https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/api/json/catalog.json
+            -- use inline comment for specific versions # yaml-language-server: $schema=<urlToTheSchema|relativeFilePath|absoluteFilePath}>
             schemas = {
               ["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "docker-compose*.{yml,yaml}",
               ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
