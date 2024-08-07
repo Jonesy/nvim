@@ -17,6 +17,7 @@ return {
         use_as_default_explorer = false,
       },
     })
+    require("mini.notify").setup()
     require("mini.pairs").setup()
     require("mini.statusline").setup()
     require("mini.surround").setup()

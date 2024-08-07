@@ -11,19 +11,15 @@ return {
         config = function()
           require("mason").setup()
         end,
-        enable = function()
-          return os == "Darwin"
-        end,
+        -- We don't need no mason with Nix
+        enable = os == "Darwin",
       },
       {
         "williamboman/mason-lspconfig.nvim",
         config = function()
           require("mason-lspconfig").setup()
         end,
-
-        enable = function()
-          return os == "Darwin"
-        end,
+        enable = os == "Darwin",
       },
 
       -- JSON schemas
@@ -77,7 +73,7 @@ return {
         nmap("gr", vim.lsp.buf.references, "Show References")
         -- Inline
         nmap("K", vim.lsp.buf.hover, "Hover documentation")
-        nmap("<C-k>", vim.lsp.buf.signature_help, "Signature documentation")
+        nmap("<leader>k", vim.lsp.buf.signature_help, "Signature documentation")
 
         if client.server_capabilities.inlayHintProvider then
           vim.lsp.inlay_hint.enable(true)
@@ -86,6 +82,11 @@ return {
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+      -- Shell Scripting
+      lspconfig.bashls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
 
       -- Markdown
       lspconfig.marksman.setup({
@@ -178,6 +179,7 @@ return {
         settings = {
           single_file_support = false,
         },
+        root_dir = util.root_pattern("package.json"),
       })
 
       lspconfig.denols.setup({
@@ -227,6 +229,7 @@ return {
         capabilities = capabilities,
         on_attach = on_attach,
         filetypes = { "p8", "lua" },
+        root_dir = util.root_pattern("cart.p8"),
       })
 
       -- Go

@@ -4,6 +4,7 @@ return {
     local conform = require("conform")
     conform.setup({
       formatters_by_ft = {
+        bash = { "shellharden" },
         go = { "goimports", "gofmt" },
         -- NOTE: use sublist to pick biome first
         javascript = { "biome", "prettierd", "prettier" },
@@ -15,7 +16,7 @@ return {
       },
       format_on_save = {
         timeout_ms = 500,
-        lsp_fallback = true,
+        lsp_format = "fallback",
       },
     })
 
