@@ -30,8 +30,8 @@ keymap("n", "<C-Right>", ":vertical resize +2<CR>", noremap_opts)
 keymap("n", "+", "<C-a>")
 keymap("n", "-", "<C-x>")
 -- Moving lines up/down
--- keymap("v", "<C-j>", ":move '>+1<CR>gv-gv", noremap_opts)
--- keymap("v", "<C-k>", ":move '<-2<CR>gv-gv", noremap_opts)
+keymap("v", "<C-j>", ":move '>+1<CR>gv-gv", noremap_opts)
+keymap("v", "<C-k>", ":move '<-2<CR>gv-gv", noremap_opts)
 
 -- Better pasting (doesn't swap the clipboard contents with what you replaced)
 keymap("v", "p", '"_dP', noremap_opts)
