@@ -9,8 +9,10 @@ return {
         -- NOTE: use sublist to pick biome first
         javascript = { "biome", "prettierd", "prettier" },
         json = { "prettierd", "prettier" },
+        liquid = { "prettierd", "prettier" },
         lua = { "stylua" },
         markdown = { "prettierd", "prettier", stop_after_first = true },
+        scss = { "stylelint" },
         sh = { "shellharden" },
         templ = { "templ" },
       },
