@@ -10,7 +10,6 @@ vim.o.hlsearch = false
 
 -- Spell check
 vim.opt.spelllang = "en_us"
-vim.opt.spell = true
 
 -- [ Encoding ]
 vim.o.encoding = "utf-8"
