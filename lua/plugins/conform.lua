@@ -26,7 +26,8 @@ return {
         liquid = { "prettierd", "prettier" },
         lua = { "stylua" },
         markdown = function(bufnr)
-          return { first(bufnr, "deno_fmt", "prettierd", "prettier"), "injected" }
+          -- return { first(bufnr, "deno_fmt", "prettierd", "prettier"), "injected" }
+          return { first(bufnr, "deno_fmt", "prettierd", "prettier") }
         end,
         scss = { "stylelint" },
         sh = { "shellharden" },
