@@ -1,3 +1,8 @@
+-- mini.lua
+--
+-- https://github.com/echasnovski/mini.nvim
+-- A fantastic set of small, single purpose plugins.
+
 return {
   "echasnovski/mini.nvim",
   version = "*",

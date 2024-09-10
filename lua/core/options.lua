@@ -1,4 +1,3 @@
--- Core Vim configuration options
 local MAX_WIDTH = 80
 
 -- First things first, spacebar is the leaderkey

@@ -1,3 +1,6 @@
+-- Completion
+--
+-- Manages autocomplete via nvim-cmp, LuaSnip and the cmp plugins.
 -- Adapted from [ Kickstart.nvim ](https://github.com/nvim-lua/kickstart.nvim/blob/master/init.lua)
 
 return {

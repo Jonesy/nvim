@@ -1,3 +1,9 @@
+-- LSP
+--
+-- Language Server Protocol setup, uses Mason on MacOS only. Nix is used to
+-- manage LSPs on Linux.
+
+--- The current OS, Darwin = MacOS.
 local os = vim.fn.system("uname")
 
 return {
@@ -11,7 +17,7 @@ return {
         config = function()
           require("mason").setup()
         end,
-        -- We don't need no mason with Nix
+        -- We don't need no Mason with Nix
         enable = os == "Darwin",
       },
       {

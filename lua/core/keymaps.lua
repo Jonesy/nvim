@@ -1,4 +1,7 @@
--- All global, plugin free keymaps go here
+--[[
+-- Keymaps
+--]]
+
 local keymap = vim.keymap.set
 local noremap_opts = { silent = true, noremap = true }
 

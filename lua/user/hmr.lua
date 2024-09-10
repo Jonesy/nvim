@@ -1,5 +1,7 @@
 ---This is an experimental first attempt at writing my own NeoVim plugin, which
----pings a URL at a specified location with the file that was updated
+---pings a URL at a specified location with the file that was updated. See
+---https://general-metrics.com/articles/simple-hmr/ for more context.
+---
 ---@class (exact) hmr.setupOptions
 ---@field file_types? table<string>
 ---@field config_name? string

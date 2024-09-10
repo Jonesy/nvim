@@ -1,4 +1,5 @@
--- TODO things
+-- Workspace plugins
+
 return {
   {
     "folke/trouble.nvim",

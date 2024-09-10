@@ -1,3 +1,5 @@
+-- Fuzzy Finder via Telescope
+
 return {
   {
     "nvim-telescope/telescope.nvim",

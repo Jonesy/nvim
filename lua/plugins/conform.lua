@@ -1,3 +1,7 @@
+-- Conform
+--
+-- Handles file formatting on save.
+
 ---@param bufnr integer
 ---@param ... string
 ---@return string
