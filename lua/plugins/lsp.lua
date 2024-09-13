@@ -182,9 +182,7 @@ return {
       lspconfig.ts_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
-        settings = {
-          single_file_support = false,
-        },
+        single_file_support = false,
         root_dir = util.root_pattern("package.json"),
       })
 
