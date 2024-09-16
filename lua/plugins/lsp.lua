@@ -261,6 +261,12 @@ return {
         on_attach = on_attach,
       })
 
+      -- C3
+      lspconfig.c3_lsp.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
       -- Swift
       lspconfig.sourcekit.setup({
         capabilities = capabilities,

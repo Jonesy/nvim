@@ -8,10 +8,14 @@ return {
   build = ":TSUpdate",
   config = function()
     require("nvim-treesitter.configs").setup({
+      sync_install = false,
+      auto_install = true,
+      ignore_install = {},
       -- Add languages to be installed here that you want installed for treesitter
       ensure_installed = {
         "c",
         "go",
+        "hare",
         "lua",
         "markdown",
         "ocaml",
@@ -26,8 +30,7 @@ return {
         "zig",
       },
 
-      auto_install = true,
-
+      modules = {},
       highlight = { enable = true },
       indent = { enable = true },
       incremental_selection = {
@@ -84,5 +87,22 @@ return {
         },
       },
     })
+    vim.filetype.add({
+      extension = {
+        c3 = "c3",
+        c3i = "c3",
+        c3t = "c3",
+      },
+    })
+
+    ---@class parser_config
+    local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+    parser_config.c3 = {
+      install_info = {
+        url = "https://github.com/c3lang/tree-sitter-c3",
+        files = { "src/parser.c", "src/scanner.c" },
+        branch = "main",
+      },
+    }
   end,
 }
