@@ -119,11 +119,25 @@ return {
       lspconfig.html.setup({
         capabilities = capabilities,
         on_attach = on_attach,
+        filetypes = { "html", "templ" },
       })
       -- Requires @olrtg/emmet-language-server
       lspconfig.emmet_language_server.setup({
         capabilities = capabilities,
         on_attach = on_attach,
+        filetypes = {
+          "css",
+          "eruby",
+          "html",
+          "javascript",
+          "javascriptreact",
+          "less",
+          "sass",
+          "scss",
+          "pug",
+          "typescriptreact",
+          "templ",
+        },
       })
 
       -- Custom Elements
