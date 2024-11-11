@@ -94,6 +94,12 @@ return {
         on_attach = on_attach,
       })
 
+      -- C
+      lspconfig.clangd.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
       -- Markdown
       lspconfig.marksman.setup({
         capabilities = capabilities,

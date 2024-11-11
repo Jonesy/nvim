@@ -23,6 +23,7 @@ return {
     conform.setup({
       formatters_by_ft = {
         bash = { "shellharden" },
+        c = { "clang-format" },
         go = { "goimports", "gofmt" },
         -- NOTE: use sublist to pick biome first
         javascript = { "biome", "deno_fmt", "prettierd", "prettier" },
