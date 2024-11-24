@@ -294,16 +294,9 @@ return {
       })
 
       -- Nix
-      lspconfig.nil_ls.setup({
+      lspconfig.nixd.setup({
         capabilities = capabilities,
         on_attach = on_attach,
-        settings = {
-          ["nil"] = {
-            formatting = {
-              command = { "nixpkgs-fmt" },
-            },
-          },
-        },
       })
 
       -- Shopify
