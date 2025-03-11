@@ -203,13 +203,18 @@ return {
         capabilities = capabilities,
         on_attach = on_attach,
         single_file_support = false,
-        root_dir = util.root_pattern("package.json"),
+        root_dir = util.root_pattern("package.json", "jsconfig.json"),
       })
 
       lspconfig.denols.setup({
         capabilities = capabilities,
         on_attach = on_attach,
         root_dir = util.root_pattern("deno.json", "deno.jsonc"),
+      })
+
+      require("lspconfig").elmls.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
       })
 
       -- As per docs
