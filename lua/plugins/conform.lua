@@ -26,7 +26,9 @@ return {
         c = { "clang-format" },
         go = { "goimports", "gofmt" },
         -- NOTE: use sublist to pick biome first
-        javascript = { "biome", "deno_fmt", "prettierd", "prettier" },
+        javascript = function(bufnr)
+          return { first(bufnr, "prettier", "prettierd", "biome", "deno_fmt") }
+        end,
         json = { "prettierd", "prettier" },
         liquid = { "prettierd", "prettier" },
         lua = { "stylua" },
