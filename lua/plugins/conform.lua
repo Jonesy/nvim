@@ -27,7 +27,7 @@ return {
         go = { "goimports", "gofmt" },
         -- NOTE: use sublist to pick biome first
         javascript = function(bufnr)
-          return { first(bufnr, "prettier", "prettierd", "biome", "deno_fmt") }
+          return { first(bufnr, "biome", "prettier", "prettierd", "deno_fmt") }
         end,
         json = { "prettierd", "prettier" },
         liquid = { "prettierd", "prettier" },

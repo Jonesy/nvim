@@ -23,7 +23,9 @@ return {
       {
         "williamboman/mason-lspconfig.nvim",
         config = function()
-          require("mason-lspconfig").setup()
+          require("mason-lspconfig").setup({
+            automatic_enable = false,
+          })
         end,
         enable = os == "Darwin",
       },
@@ -122,11 +124,11 @@ return {
       -- })
 
       -- HTML
-      lspconfig.html.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-        filetypes = { "html", "templ" },
-      })
+      -- lspconfig.html.setup({
+      --   capabilities = capabilities,
+      --   on_attach = on_attach,
+      --   filetypes = { "html", "templ" },
+      -- })
       -- Requires @olrtg/emmet-language-server
       lspconfig.emmet_language_server.setup({
         capabilities = capabilities,
@@ -203,7 +205,7 @@ return {
         capabilities = capabilities,
         on_attach = on_attach,
         single_file_support = false,
-        root_dir = util.root_pattern("package.json", "jsconfig.json"),
+        root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json"),
       })
 
       lspconfig.denols.setup({
@@ -233,10 +235,12 @@ return {
         end,
       })
 
-      lspconfig.biome.setup({
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
+      -- lspconfig.biome.setup({
+      --   capabilities = capabilities,
+      --   on_attach = on_attach,
+      --   root_dir = util.root_pattern("biome.json", "biome.jsonc"),
+      --   cmd = { "./node_modules/.bin/biome", "lsp-proxy" },
+      -- })
 
       -- Lua
       lspconfig.lua_ls.setup({
