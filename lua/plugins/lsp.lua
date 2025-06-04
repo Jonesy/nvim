@@ -155,6 +155,12 @@ return {
       --   on_attach = on_attach,
       -- })
 
+      -- PHP
+      lspconfig.phpactor.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
       -- JSON, YAML and TOML
       lspconfig.jsonls.setup({
         capabilities = capabilities,
@@ -235,12 +241,12 @@ return {
         end,
       })
 
-      -- lspconfig.biome.setup({
-      --   capabilities = capabilities,
-      --   on_attach = on_attach,
-      --   root_dir = util.root_pattern("biome.json", "biome.jsonc"),
-      --   cmd = { "./node_modules/.bin/biome", "lsp-proxy" },
-      -- })
+      lspconfig.biome.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+        root_dir = util.root_pattern("biome.json", "biome.jsonc"),
+        cmd = { "./node_modules/.bin/biome", "lsp-proxy" },
+      })
 
       -- Lua
       lspconfig.lua_ls.setup({

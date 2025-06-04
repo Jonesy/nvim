@@ -38,6 +38,7 @@ return {
           return { first(bufnr, "deno_fmt", "prettierd", "prettier") }
         end,
         nix = { "alejandra" },
+        php = { "pint" },
         scss = { "stylelint" },
         sh = { "shellharden" },
         templ = { "templ" },
