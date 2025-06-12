@@ -113,6 +113,7 @@ return {
         capabilities = capabilities,
         on_attach = on_attach,
       })
+
       lspconfig.somesass_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
@@ -140,6 +141,7 @@ return {
           "javascript",
           "javascriptreact",
           "less",
+          "php",
           "sass",
           "scss",
           "pug",

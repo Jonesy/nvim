@@ -24,6 +24,9 @@ return {
       formatters_by_ft = {
         bash = { "shellharden" },
         c = { "clang-format" },
+        css = function(bufnr)
+          return { first(bufnr, "prettierd", "prettier", "stylelint") }
+        end,
         go = { "goimports", "gofmt" },
         html = { "biome" },
         -- NOTE: use sublist to pick biome first
@@ -39,7 +42,9 @@ return {
         end,
         nix = { "alejandra" },
         php = { "pint" },
-        scss = { "stylelint" },
+        scss = function(bufnr)
+          return { first(bufnr, "prettierd", "prettier", "stylelint") }
+        end,
         sh = { "shellharden" },
         templ = { "templ" },
       },
