@@ -1,63 +1,27 @@
 # NeoVim Config
 
-NeoVim from the desk of Joshua Jones.
+The minimal years.
 
-## Installation
+#### Goals
 
-This configuration has been tested and heavily used on MacOS and Linux systems,
-so all requirements and instructions will assume as such.
+- minimal config, native-first approach, especially plugin-manager
+- use least amount of bells and whistles (plugins)
+- use nix for plugins on linux
+- Try to keep it all to 1 or just a couple files
 
-```sh
-$ mv ~/.config/nvim ~/.config/nvim.bak
-$ rm -rf )
-```
+## First steps
 
-```sh
-$ git clone git@github.com:Jonesy/nvim.git ~/.config/nvim
-$ cd ~/.config/nvim
-$ nvim
-```
+I start by just setting up all the global options, which for my purposes are
+generally found in `vim.g`, `vim.o` and vim.wo`, for global, options and window
+options. Generally you find these settings to contain heavily commented notes
+about the setting and why it is on/off, etc. I decided to leave these mainly
+blank, not necessarily to dissuade other's copying and pasting, but moreso to
+force myself and anyone using my config to intentionally lookup what the setting
+actually does. I am eternally grateful for all the amazing configs I've found
+over the years that have helped me become a competent NeoVim user, but I find
+myself at a point where I would really like to fully understand my entire
+environment and how it works so I can hone its functionality even tighter to my personal workflow.
 
-Launching NeoVim will install plugins via [Lazy](https://www.lazyvim.org/).
-
-## Design
-
-This config strives to strike a balance of minimalism and productivity, and is
-the result of 15 years and going of programming in Vim. It has a slight bent
-towards web development, primarily frontend-based, but also supports:
-
-- Zig
-- Lua
-- Go & Templ (basic)
-- Nix
-- Swift
-- PHP
-- Bash
-- and many others to come.
-
-It works great for me, but your mileage may vary. My main motivation in sharing
-publicly is educational reference.
-
-[NeoVim Kickstart](https://github.com/nvim-lua/kickstart.nvim) was a valuable
-resource in helping build the stable, minimalist foundation.
-
-### Plugins
-
-Plugins are managed following the file-based system, so `lua/core/lazy.lua` will
-crawl the `lua/plugins` directory for files that return a Lazy-formatted table.
-
-### Language Servers + Nix - Mason
-
-This config is shared between a MacOS and Nix-based Linux workstation, and I've
-found Nix devshells do a wonderful job of replacing Mason, so it is only enabled
-on MacOS systems, and will likely be removed entirely if I end up installing
-[Nix-Darwin](https://github.com/LnL7/nix-darwin) on my MacBook Pro. Mason is a
-terrific plugin, but it's one less plugin and dependency that I need, and Nix
-provides the added benefit of containerized LSP servers locked to specific
-versions.
-
-## Planned improvements
-
-- [ ] Go projects tooling [x-ray](https://github.com/ray-x/go.nvim)
-- [ ] Rust project tooling [Rustacean](https://github.com/mrcjkb/rustaceanvim)
-- [ ] Investigate [Lua FZF](https://github.com/ibhagwan/fzf-lua)
+Keymaps is another one that is pretty self-explanitory from reading each remap,
+though here I like to group each remap by what it does with some heading
+comments.
