@@ -25,13 +25,15 @@ return {
         bash = { "shellharden" },
         c = { "clang-format" },
         css = function(bufnr)
-          return { first(bufnr, "prettierd", "prettier", "stylelint") }
+          return { first(bufnr, "prettierd", "prettier", "biome", "stylelint") }
         end,
         go = { "goimports", "gofmt" },
-        html = { "biome" },
+        html = function(bufnr)
+          return { first(bufnr, "biome", "prettier", "prettierd") }
+        end,
         -- NOTE: use sublist to pick biome first
         javascript = function(bufnr)
-          return { first(bufnr, "biome", "prettier", "prettierd", "deno_fmt") }
+          return { first(bufnr, "prettier", "prettierd", "biome", "deno_fmt") }
         end,
         json = { "prettierd", "prettier" },
         liquid = { "prettierd", "prettier" },
@@ -41,7 +43,9 @@ return {
           return { first(bufnr, "deno_fmt", "prettierd", "prettier") }
         end,
         nix = { "alejandra" },
-        php = { "pint" },
+        php = function(bufnr)
+          return { first(bufnr, "pint", "pretty-php") }
+        end,
         scss = function(bufnr)
           return { first(bufnr, "prettierd", "prettier", "stylelint") }
         end,

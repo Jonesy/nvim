@@ -18,6 +18,13 @@ return {
     config = function()
       require("telescope").setup({
         defaults = {
+          file_ignore_patterns = {
+            "^lib/ext-js/",
+            "^lib/maplibre-gl/",
+            "^lib/d3/",
+            "^lib/turf/",
+            "^lib/elastic-apm-run/",
+          },
           mappings = {
             n = {
               ["<CR>"] = "select_default",
