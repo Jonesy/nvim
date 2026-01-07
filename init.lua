@@ -2,6 +2,9 @@ local COLUMN_WIDTH = 80
 
 -- Functions
 local kset = vim.keymap.set
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+
 local noremap_opts = { silent = true, noremap = true }
 local ptable = function(t)
   for key, value in pairs(t) do
@@ -57,11 +60,11 @@ vim.wo.colorcolumn = tostring(COLUMN_WIDTH) -- Display the column vertical line
 
 -- Highlight on yank
 -- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", {
+local highlight_group = augroup("YankHighlight", {
   clear = true,
 })
 
-vim.api.nvim_create_autocmd("TextYankPost", {
+autocmd("TextYankPost", {
   callback = function()
     vim.highlight.on_yank()
   end,
@@ -81,9 +84,11 @@ vim.pack.add({ gh("eldritch-theme/eldritch.nvim") }, { confirm = false })
 vim.cmd.colorscheme("eldritch-dark")
 
 -- Treesitter
-vim.api.nvim_create_autocmd("PackChanged", {
+local pack_changed_group = augroup("nvim-treesitter-pack-changed-update-handler", { clear = true })
+
+autocmd("PackChanged", {
   desc = "Handle nvim-treesitter updates",
-  group = vim.api.nvim_create_augroup("nvim-treesitter-pack-changed-update-handler", { clear = true }),
+  group = pack_changed_group,
   callback = function(event)
     if event.data.kind == "update" and event.data.spec.name == "nvim-treesitter" then
       vim.notify("nvim-treesitter updated, running TSUpdate...", vim.log.levels.INFO)
@@ -146,20 +151,32 @@ require("mini.comment").setup({
     comment_visual = "<leader>/",
   },
 })
-require("mini.files").setup({})
+require("mini.completion").setup({
+  lsp_completion = { source_func = "omnifunc" },
+})
+require("mini.extra").setup()
+require("mini.files").setup()
 require("mini.icons").setup()
 require("mini.notify").setup()
 require("mini.pairs").setup()
 require("mini.pick").setup()
+require("mini.snippets").setup()
 require("mini.statusline").setup()
 require("mini.surround").setup()
 
+-- Picker
 local pick_files = function()
   MiniPick.builtin.files({ tool = "git" })
 end
 
+local pick_symbols = function()
+  MiniExtra.pickers.lsp({ scope = "document_symbol" })
+end
+
 kset("n", "<leader>bb", MiniPick.builtin.buffers, noremap_opts)
 kset("n", "<leader>ff", pick_files, noremap_opts)
+kset("n", "<leader>fg", MiniPick.builtin.grep_live, noremap_opts)
+kset("n", "<leader>fs", pick_symbols, noremap_opts)
 kset("n", "<leader>fh", MiniPick.builtin.help, noremap_opts)
 kset("n", "<leader>e", MiniFiles.open, noremap_opts)
 
@@ -167,36 +184,82 @@ kset("n", "<leader>e", MiniFiles.open, noremap_opts)
 vim.pack.add({
   gh("neovim/nvim-lspconfig"),
   gh("mason-org/mason.nvim"),
+  gh("b0o/schemastore.nvim"),
 })
+
 require("mason").setup()
 
 -- Enable LSP if in Git repo
 vim.lsp.config("*", { root_markers = { ".git" } })
 
 local lsps = {
+  { "clangd" },
   { "cssls" },
-  {
-    "eslint",
-  },
+  { "elmls" },
+  { "eslint" },
   { "gopls" },
+  {
+    "jsonls",
+    {
+      settings = {
+        json = {
+          schemas = require("schemastore").json.schemas(),
+          validate = { enable = true },
+        },
+      },
+    },
+  },
   {
     "lua_ls",
     {
       settings = {
         Lua = {
           runtime = { version = "LuaJIT" },
-          workspace = { checkThirdParty = false },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = { "vim" },
+          },
+          workspace = {
+            checkThirdParty = false,
+            library = vim.api.nvim_get_runtime_file("", true),
+          },
           telemetry = { enable = false },
-          completion = {
-            callSnippet = "Replace",
+        },
+      },
+    },
+  },
+  { "marksman" },
+  { "nixd" },
+  { "pico8_ls" },
+  { "somesass_ls" },
+  {
+    "ts_ls",
+    {
+      single_file_support = false,
+    },
+  },
+  {
+    "yamlls",
+    {
+      settings = {
+        yaml = {
+          validate = true,
+          -- disable the schema store
+          schemaStore = {
+            enable = false,
+            url = "",
+          },
+          -- reference https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/api/json/catalog.json
+          -- use inline comment for specific versions # yaml-language-server: $schema=<urlToTheSchema|relativeFilePath|absoluteFilePath}>
+          schemas = {
+            ["https://raw.githubusercontent.com/docker/compose/master/compose/config/compose_spec.json"] = "docker-compose*.{yml,yaml}",
+            ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
           },
         },
       },
     },
   },
-  {
-    "ts_ls",
-  },
+  { "zls" },
 }
 
 for _, lsp in pairs(lsps) do
@@ -218,6 +281,7 @@ vim.diagnostic.config({
 kset("n", "gd", vim.lsp.buf.definition, noremap_opts)
 kset("n", "grt", vim.lsp.buf.type_definition, noremap_opts)
 kset("n", "rn", vim.lsp.buf.rename, noremap_opts)
+kset("n", "gr", vim.lsp.buf.references, noremap_opts)
 
 --[
 -- Conform - Formatting
@@ -274,6 +338,22 @@ conform.setup({
   format_on_save = {
     timeout_ms = 500,
     lsp_format = "fallback",
+  },
+})
+
+--[
+-- Gitsigns
+--]
+vim.pack.add({ gh("lewis6991/gitsigns.nvim") })
+
+require("gitsigns").setup({
+  signs = {
+    add = { text = "▉" },
+    change = { text = "▉" },
+    delete = { text = "▓" },
+    topdelete = { text = " " },
+    changedelete = { text = "▒" },
+    untracked = { text = "░" },
   },
 })
 

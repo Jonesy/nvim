@@ -8,6 +8,10 @@
       "rev": "0415fa72c348e814a7a6cc9405593a4f812fe12f",
       "src": "https://github.com/eldritch-theme/eldritch.nvim"
     },
+    "gitsigns.nvim": {
+      "rev": "dfac404ac94b0eb1461bd7da32279e16950dfd67",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
+    },
     "mason.nvim": {
       "rev": "57e5a8addb8c71fb063ee4acda466c7cf6ad2800",
       "src": "https://github.com/mason-org/mason.nvim"
@@ -29,6 +33,10 @@
       "rev": "28a3494c075ef0f353314f627546537e43c09592",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
       "version": "'main'"
+    },
+    "schemastore.nvim": {
+      "rev": "1b83928c9ff8ff9d9506acc1aa8e0bdee635c570",
+      "src": "https://github.com/b0o/schemastore.nvim"
     }
   }
 }
