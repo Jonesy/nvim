@@ -346,7 +346,9 @@ conform.setup({
 --]
 vim.pack.add({ gh("lewis6991/gitsigns.nvim") })
 
-require("gitsigns").setup({
+local gitsigns = require("gitsigns")
+
+gitsigns.setup({
   signs = {
     add = { text = "▉" },
     change = { text = "▉" },
@@ -356,6 +358,8 @@ require("gitsigns").setup({
     untracked = { text = "░" },
   },
 })
+
+kset("n", "<leader>gl", gitsigns.setqflist, noremap_opts)
 
 --[
 -- Global Keymaps
