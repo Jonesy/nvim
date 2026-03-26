@@ -6,16 +6,15 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 local noremap_opts = { silent = true, noremap = true }
-local ptable = function(t)
-  for key, value in pairs(t) do
-    print(key, value)
-  end
-end
+-- local ptable = function(t)
+--   for key, value in pairs(t) do
+--     print(key, value)
+--   end
+-- end
 
 --[[
 -- Global settings 
 --]]
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -75,28 +74,22 @@ autocmd("TextYankPost", {
 --[[
 -- Plugins
 --]]
-local gh = function(package)
-  return "https://github.com/" .. package
-end
-
--- Colorscheme
-vim.pack.add({ gh("eldritch-theme/eldritch.nvim") }, { confirm = false })
-vim.cmd.colorscheme("eldritch-dark")
-
--- Treesitter
 local pack_changed_group = augroup("nvim-treesitter-pack-changed-update-handler", { clear = true })
 
 autocmd("PackChanged", {
   desc = "Handle nvim-treesitter updates",
   group = pack_changed_group,
   callback = function(event)
-    if event.data.kind == "update" and event.data.spec.name == "nvim-treesitter" then
-      vim.notify("nvim-treesitter updated, running TSUpdate...", vim.log.levels.INFO)
+    local name, kind = event.data.spce.namm, event.data.kind
+    if name == "nvim-treesitter" and kind == "update" then
+      if not event.data.active then
+        vim.cmd.packadd("nvim-treesitter")
+      end
       ---@diagnostic disable-next-line: param-type-mismatch
       local ok = pcall(vim.cmd, "TSUpdate")
 
       if ok then
-        vim.notify("TSUpdate completed successfiully", vim.log.levels.INFO)
+        vim.notify("TSUpdate completed successfully", vim.log.levels.INFO)
       else
         vim.notify("TSUpdate command not available yet, skipping...", vim.log.levels.WARN)
       end
@@ -104,7 +97,12 @@ autocmd("PackChanged", {
   end,
 })
 
+local gh = function(package)
+  return "https://github.com/" .. package
+end
+
 vim.pack.add({
+  gh("eldritch-theme/eldritch.nvim"),
   {
     src = gh("nvim-treesitter/nvim-treesitter"),
     version = "main",
@@ -113,37 +111,51 @@ vim.pack.add({
     src = gh("nvim-treesitter/nvim-treesitter-textobjects"),
     version = "main",
   },
-}, { load = true })
+  gh("nvim-mini/mini.nvim"),
+  gh("neovim/nvim-lspconfig"),
+  gh("mason-org/mason.nvim"),
+  gh("b0o/schemastore.nvim"),
+  gh("stevearc/conform.nvim"),
+  gh("lewis6991/gitsigns.nvim"),
+}, { confirm = false })
 
-require("nvim-treesitter").setup({
-  auto_install = true,
-  sync_install = true,
-  ensure_installed = {
-    "c",
-    "elm",
-    "go",
-    "hare",
-    "html",
-    "javascript",
-    "json",
-    "lua",
-    "markdown",
-    "ocaml",
-    "python",
-    "rust",
-    "swift",
-    "templ",
-    "tsx",
-    "typescript",
-    "vimdoc",
-    "vim",
-    "zig",
-  },
+-- Colorscheme
+vim.cmd.colorscheme("eldritch-dark")
+
+-- Treesitter
+local parsers = {
+  "c",
+  "elm",
+  "go",
+  "hare",
+  "html",
+  "javascript",
+  "json",
+  "lua",
+  "markdown",
+  "ocaml",
+  "python",
+  "rust",
+  "swift",
+  "templ",
+  "tsx",
+  "typescript",
+  "vimdoc",
+  "vim",
+  "zig",
+}
+local ts = require("nvim-treesitter")
+
+ts.install(parsers)
+
+autocmd("FileType", {
+  pattern = parsers,
+  callback = function()
+    vim.treesitter.start()
+  end,
 })
 
 -- Mini
-vim.pack.add({ gh("nvim-mini/mini.nvim") })
-
 require("mini.comment").setup({
   mappings = {
     comment = "<leader>/",
@@ -181,12 +193,6 @@ kset("n", "<leader>fh", MiniPick.builtin.help, noremap_opts)
 kset("n", "<leader>e", MiniFiles.open, noremap_opts)
 
 -- LSP
-vim.pack.add({
-  gh("neovim/nvim-lspconfig"),
-  gh("mason-org/mason.nvim"),
-  gh("b0o/schemastore.nvim"),
-})
-
 require("mason").setup()
 
 -- Enable LSP if in Git repo
@@ -286,8 +292,6 @@ kset("n", "gr", vim.lsp.buf.references, noremap_opts)
 --[
 -- Conform - Formatting
 --]
-vim.pack.add({ gh("stevearc/conform.nvim") })
-
 local conform = require("conform")
 
 ---@param bufnr integer
@@ -316,14 +320,13 @@ conform.setup({
     end,
     -- NOTE: use sublist to pick biome first
     javascript = function(bufnr)
-      return { first(bufnr, "prettier", "prettierd", "biome", "deno_fmt") }
+      return { first(bufnr, "prettierd", "prettier", "biome") }
     end,
     json = { "prettierd", "prettier" },
     liquid = { "prettierd", "prettier" },
     lua = { "stylua" },
     markdown = function(bufnr)
-      -- return { first(bufnr, "deno_fmt", "prettierd", "prettier"), "injected" }
-      return { first(bufnr, "deno_fmt", "prettierd", "prettier") }
+      return { first(bufnr, "prettierd", "prettier"), "injected" }
     end,
     nix = { "alejandra" },
     php = function(bufnr)
@@ -344,8 +347,6 @@ conform.setup({
 --[
 -- Gitsigns
 --]
-vim.pack.add({ gh("lewis6991/gitsigns.nvim") })
-
 local gitsigns = require("gitsigns")
 
 gitsigns.setup({
