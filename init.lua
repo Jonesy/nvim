@@ -6,11 +6,11 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 local noremap_opts = { silent = true, noremap = true }
--- local ptable = function(t)
---   for key, value in pairs(t) do
---     print(key, value)
---   end
--- end
+ptable = function(t)
+  for key, value in pairs(t) do
+    print(key, value)
+  end
+end
 
 --[[
 -- Global settings 
@@ -154,6 +154,14 @@ autocmd("FileType", {
     vim.treesitter.start()
   end,
 })
+
+require("sa.api").setup()
+-- autocmd("FileType", {
+--   pattern = "json",
+--   callback = function()
+--     require("sa.api").setup()
+--   end,
+-- })
 
 -- Mini
 require("mini.comment").setup({
