@@ -156,12 +156,6 @@ autocmd("FileType", {
 })
 
 require("sa.api").setup()
--- autocmd("FileType", {
---   pattern = "json",
---   callback = function()
---     require("sa.api").setup()
---   end,
--- })
 
 -- Mini
 require("mini.comment").setup({
