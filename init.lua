@@ -74,6 +74,7 @@ autocmd("TextYankPost", {
 --[[
 -- Plugins
 --]]
+require("vim._core.ui2").enable({})
 local pack_changed_group = augroup("nvim-treesitter-pack-changed-update-handler", { clear = true })
 
 autocmd("PackChanged", {
