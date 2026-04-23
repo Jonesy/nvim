@@ -1,4 +1,5 @@
 local COLUMN_WIDTH = 80
+local OS_NAME = vim.fn.system("uname")
 
 -- Functions
 local kset = vim.keymap.set
@@ -114,7 +115,6 @@ vim.pack.add({
   },
   gh("nvim-mini/mini.nvim"),
   gh("neovim/nvim-lspconfig"),
-  gh("mason-org/mason.nvim"),
   gh("b0o/schemastore.nvim"),
   gh("stevearc/conform.nvim"),
   gh("lewis6991/gitsigns.nvim"),
@@ -196,10 +196,14 @@ kset("n", "<leader>fh", MiniPick.builtin.help, noremap_opts)
 kset("n", "<leader>e", MiniFiles.open, noremap_opts)
 
 -- LSP
-require("mason").setup()
+if OS_NAME == "Darwin" then
+  vim.pack.add(gh("mason-org/mason.nvim"))
+  require("mason").setup()
+end
 
 -- Enable LSP if in Git repo
 vim.lsp.config("*", { root_markers = { ".git" } })
+vim.lsp.inlay_hint.enable(true)
 
 local lsps = {
   { "clangd" },
