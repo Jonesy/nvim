@@ -21,6 +21,7 @@ end
 --- | "post"
 --- | "create"
 --- | "delete"
+--- | "find"
 --- | "regenerate"
 --- | "update"
 --- @param v verb
@@ -79,6 +80,11 @@ function M.get(opts)
   request("get", opts.args)
 end
 
+--- @param opts vim.api.keyset.create_user_command.command_args
+function M.find(opts)
+  request("find", opts.args)
+end
+
 function M.setup()
   new_cmd("SaGet", M.get, {
     nargs = "*",
@@ -95,6 +101,16 @@ function M.setup()
         "user/data",
         "user/projects",
         "user/recentAttributes",
+      }
+    end,
+  })
+
+  new_cmd("SaFind", M.find, {
+    nargs = "*",
+    range = true,
+    complete = function()
+      return {
+        "data/locations2",
       }
     end,
   })
