@@ -1,5 +1,4 @@
 local COLUMN_WIDTH = 80
-local OS_NAME = vim.fn.system("uname")
 
 -- Functions
 local kset = vim.keymap.set
@@ -82,7 +81,7 @@ autocmd("PackChanged", {
   desc = "Handle nvim-treesitter updates",
   group = pack_changed_group,
   callback = function(event)
-    local name, kind = event.data.spce.namm, event.data.kind
+    local name, kind = event.data.spec.name, event.data.kind
     if name == "nvim-treesitter" and kind == "update" then
       if not event.data.active then
         vim.cmd.packadd("nvim-treesitter")
@@ -169,6 +168,7 @@ require("mini.comment").setup({
 require("mini.completion").setup({
   lsp_completion = { source_func = "omnifunc" },
 })
+require("mini.ai").setup()
 require("mini.extra").setup()
 require("mini.files").setup()
 require("mini.icons").setup()
@@ -196,8 +196,8 @@ kset("n", "<leader>fh", MiniPick.builtin.help, noremap_opts)
 kset("n", "<leader>e", MiniFiles.open, noremap_opts)
 
 -- LSP
-if OS_NAME == "Darwin" then
-  vim.pack.add(gh("mason-org/mason.nvim"))
+if vim.fn.has("mac") == 1 then
+  vim.pack.add({ gh("mason-org/mason.nvim") })
   require("mason").setup()
 end
 
@@ -246,9 +246,15 @@ local lsps = {
   { "pico8_ls" },
   { "somesass_ls" },
   {
-    "ts_ls",
+    "vtsls",
     {
-      single_file_support = false,
+      settings = {
+        javascript = {
+          preferences = {
+            importModuleSpecifierEnding = "js",
+          },
+        },
+      },
     },
   },
   {
