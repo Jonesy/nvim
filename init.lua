@@ -246,6 +246,27 @@ local lsps = {
   { "pico8_ls" },
   { "somesass_ls" },
   {
+    "emmet_language_server",
+    {
+      settings = {
+        filetypes = {
+          "css",
+          "eruby",
+          "html",
+          "javascript",
+          "javascriptreact",
+          "less",
+          "php",
+          "sass",
+          "scss",
+          "pug",
+          "typescriptreact",
+          "templ",
+        },
+      },
+    },
+  },
+  {
     "vtsls",
     {
       settings = {
