@@ -165,6 +165,7 @@ require("mini.comment").setup({
     comment_visual = "<leader>/",
   },
 })
+require("mini.snippets").setup()
 require("mini.completion").setup({
   lsp_completion = { source_func = "omnifunc" },
 })
@@ -175,7 +176,6 @@ require("mini.icons").setup()
 require("mini.notify").setup()
 require("mini.pairs").setup()
 require("mini.pick").setup()
-require("mini.snippets").setup()
 require("mini.statusline").setup()
 require("mini.surround").setup()
 
@@ -302,6 +302,8 @@ local lsps = {
   { "zls" },
 }
 
+vim.lsp.config("*", { capabilities = MiniCompletion.get_lsp_capabilities() })
+
 for _, lsp in pairs(lsps) do
   local name, config = lsp[1], lsp[2]
 
@@ -322,6 +324,9 @@ kset("n", "gd", vim.lsp.buf.definition, noremap_opts)
 kset("n", "grt", vim.lsp.buf.type_definition, noremap_opts)
 kset("n", "rn", vim.lsp.buf.rename, noremap_opts)
 kset("n", "gr", vim.lsp.buf.references, noremap_opts)
+kset("n", "<leader>ca", vim.lsp.buf.code_action, noremap_opts)
+kset("n", "<leader>do", vim.diagnostic.open_float, noremap_opts)
+kset("n", "<leader>dl", vim.diagnostic.setloclist, noremap_opts)
 
 --[
 -- Conform - Formatting
@@ -360,7 +365,7 @@ conform.setup({
     liquid = { "prettierd", "prettier" },
     lua = { "stylua" },
     markdown = function(bufnr)
-      return { first(bufnr, "prettierd", "prettier"), "injected" }
+      return { first(bufnr, "panache", "prettierd", "prettier"), "injected" }
     end,
     nix = { "alejandra" },
     php = function(bufnr)
@@ -416,7 +421,7 @@ kset("n", "<C-k>", "<C-w>k", noremap_opts)
 -- Buffers
 kset("n", "<leader>bn", ":bnext<CR>", noremap_opts)
 kset("n", "<leader>bp", ":bprevious<CR>", noremap_opts)
-kset("n", "<leader>c", ":bd!<CR>", noremap_opts)
+kset("n", "<leader>x", ":bd!<CR>", noremap_opts)
 
 -- Resize with arrows
 kset("n", "<C-Up>", ":resize +2<CR>", noremap_opts)
