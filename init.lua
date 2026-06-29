@@ -135,6 +135,7 @@ local parsers = {
   "markdown",
   "ocaml",
   "python",
+  "qmljs",
   "rust",
   "swift",
   "templ",
@@ -211,6 +212,7 @@ local lsps = {
   { "elmls" },
   { "eslint" },
   { "gopls" },
+  { "qmlls" },
   {
     "jsonls",
     {
