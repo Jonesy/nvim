@@ -101,6 +101,7 @@ function M.setup()
         "user/data",
         "user/projects",
         "user/recentAttributes",
+        "quickReportTemplates",
       }
     end,
   })
@@ -110,6 +111,7 @@ function M.setup()
     range = true,
     complete = function()
       return {
+        "attributes",
         "data/locations2",
       }
     end,
