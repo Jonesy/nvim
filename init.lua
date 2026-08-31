@@ -57,6 +57,9 @@ vim.wo.relativenumber = true
 vim.wo.signcolumn = "yes" -- Always add a little buffer for any signs to left
 vim.wo.colorcolumn = tostring(COLUMN_WIDTH) -- Display the column vertical line
 
+-- vim.o.spell = true
+vim.o.spelllang = "en_ca"
+
 -- Highlight on yank
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = augroup("YankHighlight", {
@@ -125,7 +128,10 @@ vim.cmd.colorscheme("eldritch-dark")
 -- Treesitter
 local parsers = {
   "c",
+  "css",
   "elm",
+  "gleam",
+  "gren",
   "go",
   "hare",
   "html",
@@ -246,6 +252,7 @@ local lsps = {
   { "marksman" },
   { "nixd" },
   { "pico8_ls" },
+  { "stylelint_lsp", { root_dir = { "stylelint.config.mjs" } } },
   { "somesass_ls" },
   {
     "emmet_language_server",
@@ -353,7 +360,7 @@ conform.setup({
     bash = { "shellharden" },
     c = { "clang-format" },
     css = function(bufnr)
-      return { first(bufnr, "prettierd", "prettier", "biome", "stylelint") }
+      return { first(bufnr, "biome", "prettierd", "prettier") }
     end,
     go = { "goimports", "gofmt" },
     html = function(bufnr)
@@ -361,9 +368,11 @@ conform.setup({
     end,
     -- NOTE: use sublist to pick biome first
     javascript = function(bufnr)
-      return { first(bufnr, "prettierd", "prettier", "biome") }
+      return { first(bufnr, "biome", "prettierd", "prettier") }
     end,
-    json = { "prettierd", "prettier" },
+    json = function(bufnr)
+      return { first(bufnr, "biome", "prettier", "prettierd") }
+    end,
     liquid = { "prettierd", "prettier" },
     lua = { "stylua" },
     markdown = function(bufnr)
@@ -374,7 +383,7 @@ conform.setup({
       return { first(bufnr, "pint", "pretty-php") }
     end,
     scss = function(bufnr)
-      return { first(bufnr, "prettierd", "prettier", "stylelint") }
+      return { first(bufnr, "prettierd", "prettier") }
     end,
     sh = { "shellharden" },
     templ = { "templ" },
