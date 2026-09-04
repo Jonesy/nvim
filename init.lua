@@ -217,6 +217,7 @@ local lsps = {
   { "cssls" },
   { "elmls" },
   { "eslint" },
+  { "gleam" },
   { "gopls" },
   { "qmlls" },
   {
@@ -362,6 +363,7 @@ conform.setup({
     css = function(bufnr)
       return { first(bufnr, "biome", "prettierd", "prettier") }
     end,
+    elm = { "elm" },
     go = { "goimports", "gofmt" },
     html = function(bufnr)
       return { first(bufnr, "biome", "prettier", "prettierd") }
